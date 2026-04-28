@@ -1,1 +1,0 @@
-# interferential-therapy-device-
