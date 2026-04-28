@@ -1,51 +1,41 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
-import time
+import plotly.graph_objects as go
 
-st.set_page_config(page_title="IF Therapy Simulator", layout="centered")
+# 1. إعداد الصفحة وتغيير الثيم للأسود الاحترافي
+st.set_page_config(page_title="IF Simulator Pro", layout="wide")
 
-st.title("⚡ IF Therapy Simulator")
+# 2. إضافة CSS لتجميل الخطوط والأزرار
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+    
+    .main { background-color: #0e1117; }
+    .title-text {
+        font-family: 'Orbitron', sans-serif;
+        color: #00FBFF;
+        text-align: center;
+        text-shadow: 0px 0px 10px #00FBFF;
+        font-size: 3rem;
+    }
+    .stButton>button {
+        width: 100%;
+        background-color: #00FBFF;
+        color: black;
+        font-weight: bold;
+        border-radius: 10px;
+        border: none;
+        height: 3em;
+    }
+    .stNumberInput label { color: #00FBFF !important; font-size: 1.2rem; }
+    </style>
+    <h1 class="title-text">IFT DIGITAL INTERFACE</h1>
+    """, unsafe_allow_html=True)
 
-# Controls
-f1 = st.slider("Channel 1 Frequency (Hz)", 3000, 5000, 4000)
-f2 = st.slider("Channel 2 Frequency (Hz)", 3000, 5000, 4100)
-intensity = st.slider("Intensity", 1, 50, 20)
+# 3. تنظيم العناصر في أعمدة (Layout)
+col1, col2 = st.columns([1, 2])
 
-beat = abs(f1 - f2)
-st.markdown(f"### Beat Frequency: {beat} Hz")
-
-# Placeholder for animation
-chart = st.empty()
-
-# Time axis
-x = np.linspace(0, 1, 800)
-
-t = 0
-
-# Animation loop
-for _ in range(200):
-
-    y1 = np.sin(2*np.pi*f1*(x + t))
-    y2 = np.sin(2*np.pi*f2*(x + t))
-    y3 = (y1 + y2) * (intensity / 20)
-
-    fig, ax = plt.subplots()
-
-    ax.plot(x, y1, label="Channel 1", linewidth=1)
-    ax.plot(x, y2, label="Channel 2", linewidth=1)
-    ax.plot(x, y3, label="Interference", linewidth=2)
-
-    ax.set_facecolor("black")
-    fig.patch.set_facecolor("#06141c")
-
-    ax.set_xticks([])
-    ax.set_yticks([])
-
-    ax.legend(loc="upper right")
-
-    chart.pyplot(fig)
-    plt.close(fig)
-
-    t += 0.01
-    time.sleep(0.03)
+with col1:
+    st.markdown("### ⚙️ PARAMETERS")
+    # مدخلات الأرقام بشكل منظم
+    base_f =
